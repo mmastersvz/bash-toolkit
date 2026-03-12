@@ -13,11 +13,11 @@ fi
 
 echo "Updating repositories in organization: $ORG"
 
-gh repo list $ORG --limit 1000 --json name -q '.[].name' |
-while read repo; do
+gh repo list "$ORG" --limit 1000 --json name -q '.[].name' |
+while read -r repo; do
   echo "Updating $repo"
   gh api \
     --method PATCH \
-    /repos/$ORG/$repo \
+    /repos/"$ORG"/"$repo" \
     -f delete_branch_on_merge=true >/dev/null
 done
