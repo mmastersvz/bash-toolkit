@@ -1,0 +1,14 @@
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit -v'
+alias gca='git commit -am'             # add + commit all tracked files
+alias gp='git push'
+alias gpf='git push --force-with-lease' # safer force push
+alias gl='git log --oneline --graph --decorate'
+alias gla='git log --oneline --graph --all --decorate'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gb='git branch'
+alias gco='git checkout'
+alias gcb='git checkout -b'            # create + switch branch
+alias grv='git remote -v'
