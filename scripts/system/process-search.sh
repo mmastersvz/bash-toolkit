@@ -7,4 +7,4 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-ps aux | grep -i "$1" | grep -v grep
+pgrep -a -i "$1"
