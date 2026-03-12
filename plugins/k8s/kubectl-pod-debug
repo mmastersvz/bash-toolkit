@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Describes a pod, shows recent logs, and lists related events
+
+set -euo pipefail
+
+POD=$1
+NAMESPACE=${2:-$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null || echo "")}
+NAMESPACE=${NAMESPACE:-default}
+
+echo "Describing pod"
+kubectl describe pod "$POD" -n "$NAMESPACE"
+
+echo ""
+echo "Logs"
+kubectl logs "$POD" -n "$NAMESPACE" --tail=100
+
+echo ""
+echo "Events"
+kubectl get events -n "$NAMESPACE" \
+  --field-selector involvedObject.name="$POD"

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Lists pods with restarts
+
+set -euo pipefail
+
+kubectl get pods -A \
+  -o jsonpath='{range .items[*]}{.metadata.namespace}{" "}{.metadata.name}{" "}{.status.containerStatuses[*].restartCount}{"\n"}{end}' \
+  | awk '$3 > 0 {print}'

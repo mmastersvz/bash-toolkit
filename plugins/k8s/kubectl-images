@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Lists all container images used in the cluster
+
+set -euo pipefail
+
+kubectl get pods -A \
+  -o jsonpath="{..image}" \
+  | tr -s '[[:space:]]' '\n' \
+  | sort \
+  | uniq

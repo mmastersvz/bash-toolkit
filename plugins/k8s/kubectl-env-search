@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Searches for environment variables in Kubernetes pods
+
+set -euo pipefail
+
+VAR=$1
+
+kubectl get pods -A -o json \
+| jq -r --arg VAR "$VAR" '
+.items[] |
+{
+  ns: .metadata.namespace,
+  pod: .metadata.name,
+  containers: .spec.containers[]
+} |
+select(.containers.env[]?.name == $VAR) |
+"\(.ns) \(.pod) \(.containers.name)"
+'

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Opens a shell in a selected pod
+
+set -euo pipefail
+
+NAMESPACE=${1:-$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null || echo "")}
+NAMESPACE=${NAMESPACE:-default}
+
+pods=($(kubectl get pods -n "$NAMESPACE" -o jsonpath='{.items[*].metadata.name}'))
+
+echo "Select pod:"
+echo ""
+
+for i in "${!pods[@]}"; do
+    echo "$((i+1))) ${pods[$i]}"
+done
+
+echo ""
+read -p "Choice: " choice
+
+pod=${pods[$((choice-1))]}
+
+kubectl exec -it "$pod" -n "$NAMESPACE" -- /bin/sh

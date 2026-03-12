@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Lists deployments with unavailable replicas
+
+set -euo pipefail
+
+kubectl get deployments -A -o json \
+| jq -r '
+.items[] |
+select(.status.readyReplicas != .status.replicas) |
+"\(.metadata.namespace) \(.metadata.name) ready:\(.status.readyReplicas // 0)/\(.status.replicas)"
+'
