@@ -19,7 +19,19 @@ fi
 alias k='kubectl'
 
 alias klogs='kubectl logs $1'
-alias kexec='kubectl exec -it $1 -- /bin/bash'
+alias kdel='kubectl delete'
+alias krr='kubectl rollout restart'
+
+alias kbash='kubectl exec -it $1 -- /bin/bash'
+alias ksh='kubectl exec -it $1 -- /bin/sh'
+
+alias kd='kubectl describe'
+alias kdpo='kubectl describe po'
+alias kdsvc='kubectl describe svc'
+alias kddeploy='kubectl describe deploy'
+alias kdnodes='kubectl describe nodes'
+alias kdnso='kubectl describe ns'
+
 alias kg='kubectl get'
 alias kgall='kubectl get all'
 alias kgpods='kubectl get pods'
