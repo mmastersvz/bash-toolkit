@@ -8,6 +8,11 @@ source "$SCRIPT_DIR/pg-connect.sh"
 
 pg_k8s_session() {
 
+    if [[ -z "${1:-}" || -z "${2:-}" ]]; then
+        echo "Usage: ${FUNCNAME[0]} <db_name> <secret> [namespace] [target] [local_port] [db_user_key] [db_pass_key]" >&2
+        return 1
+    fi
+
     local db_name=$1
     local secret=$2
     local namespace=${3:-default}
