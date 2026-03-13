@@ -3,10 +3,15 @@ set -euo pipefail
 
 pg_connect_env() {
 
-    export PGHOST=${PGHOST:-127.0.0.1}
-    export PGPORT=${PGPORT:-15432}
+    local user=$1
+    local password=$2
+    local database=$3
+    local host=${4:-127.0.0.1}
+    local port=${5:-15432}
 
-    export PGUSER=$1
-    export PGPASSWORD=$2
-    export PGDATABASE=$3
+    export PGHOST="$host"
+    export PGPORT="$port"
+    export PGUSER="$user"
+    export PGPASSWORD="$password"
+    export PGDATABASE="$database"
 }
