@@ -30,10 +30,10 @@ pg_k8s_session() {
     echo "DB Pass Key: $db_pass_key"
     echo
 
-    DB_USER=$(pg_k8s_get_secret "$namespace" "$secret" "$db_user_key")
-    DB_PASS=$(pg_k8s_get_secret "$namespace" "$secret" "$db_pass_key")
+    local db_user=$(pg_k8s_get_secret "$namespace" "$secret" "$db_user_key")
+    local db_pass=$(pg_k8s_get_secret "$namespace" "$secret" "$db_pass_key")
 
-    pg_connect_env "$DB_USER" "$DB_PASS" "$db_name" "127.0.0.1" "$local_port"
+    pg_connect_env "$db_user" "$db_pass" "$db_name" "127.0.0.1" "$local_port"
 
     pg_k8s_port_forward "$namespace" "$target" "$local_port"
 
