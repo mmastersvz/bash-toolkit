@@ -14,6 +14,7 @@ bash-toolkit/
     ├── git/
     ├── github/
     ├── k8s/
+    ├── postgres/
     └── system/
 ```
 
@@ -150,6 +151,23 @@ This copies the plugins to `/usr/local/bin` so they are available as `kubectl <p
 | `port-check.sh` | Check if a port is open on a host |
 | `port-scan.sh` | Scan common ports on a host |
 | `process-search.sh` | Find processes by name |
+
+### Postgres (`scripts/postgres/`)
+
+These scripts connect to a Postgres instance via K8s port-forwarding through pgbouncer. They read credentials from a Kubernetes secret and set up the `psql` environment automatically.
+
+**Usage:** `<script> <db_name> <secret> [namespace] [target] [local_port] [db_user_key] [db_pass_key]`
+
+| Script | Description |
+|--------|-------------|
+| `pg-shell.sh` | Open an interactive psql shell |
+| `pg-connections.sh` | Active connections grouped by database, user, client address, and state |
+| `pg-db-sizes.sh` | Size of all databases |
+| `pg-table-sizes.sh` | Top 20 tables by total size |
+| `pg-top-queries.sh` | Top 10 running queries by duration |
+| `pg-vacuum-report.sh` | Tables with the most dead tuples (vacuum candidates) |
+| `pg-dump.sh` | Dump a database to a gzipped SQL file |
+| `pg-list-databases.sh` | List all non-template databases (uses `PGHOST`/`PGPORT` env vars) |
 
 ### Other
 
