@@ -18,8 +18,9 @@ fi
 echo "Available subscriptions:"
 az account list --query '[].{Name:name, ID:id, State:state}' --output table
 
-read -p "Enter the exact Subscription NAME to use: " SUB_NAME
-
+read -r -p "Enter the exact Subscription NAME to use: " SUB_NAME
+SUB_NAME="${SUB_NAME%"${SUB_NAME##*[![:space:]]}"}"   # remove trailing whitespace
+SUB_NAME="${SUB_NAME#"${SUB_NAME%%[![:space:]]*}"}"   # remove leading whitespace
 # Set the subscription
 az account set --subscription "$SUB_NAME"
 

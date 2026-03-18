@@ -10,7 +10,7 @@ output_dir="azure_full_inventory_$(date +%Y%m%d_%H%M%S)"
 mkdir -p "$output_dir"
 
 echo "Collecting enabled subscriptions..."
-subscriptions=$(az account list --query '[?state==`Enabled`].{name:name, id:id}' --output tsv)
+subscriptions=$(az account list --query "[?state=='Enabled'].{name:name, id:id}" --output tsv)
 
 [ -z "$subscriptions" ] && { echo "No enabled subs."; exit 1; }
 
