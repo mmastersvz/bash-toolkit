@@ -167,6 +167,7 @@ These scripts connect to a Postgres instance via K8s port-forwarding through pgb
 | `pg-top-queries.sh` | Top 10 running queries by duration |
 | `pg-vacuum-report.sh` | Tables with the most dead tuples (vacuum candidates) |
 | `pg-dump.sh` | Dump a database to a gzipped SQL file |
+| `pg-restore.sh` | Restore a gzipped SQL dump into a database |
 | `pg-list-databases.sh` | List all non-template databases (uses `PGHOST`/`PGPORT` env vars) |
 
 ### Other
