@@ -133,6 +133,10 @@ This copies the plugins to `/usr/local/bin` so they are available as `kubectl <p
 | `image-pull-errors.sh` | Find pods stuck in ErrImagePull / ImagePullBackOff |
 | `ingress-debug.sh` | Show an ingress, backend services, endpoints, and TLS status |
 | `debug-pod.sh` | Launch a throwaway busybox pod for cluster-side debugging |
+| `netdebug-pod.sh` | Launch a netshoot pod with curl, dig, tcpdump, nmap, iperf3, etc. (optional `--node` targeting) |
+| `pod-trace.sh` | All-in-one pod debugger: describe, all container logs (current + previous), and events |
+| `top-pods.sh` | Top N pods by CPU or memory across all namespaces (`cpu`\|`mem`, default: cpu, 20) |
+| `exec-deployment.sh` | Run a shell command across all running pods in a deployment |
 
 ### Git (`scripts/git/`)
 
