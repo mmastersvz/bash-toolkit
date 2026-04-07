@@ -137,6 +137,16 @@ This copies the plugins to `/usr/local/bin` so they are available as `kubectl <p
 | `pod-trace.sh` | All-in-one pod debugger: describe, all container logs (current + previous), and events |
 | `top-pods.sh` | Top N pods by CPU or memory across all namespaces (`cpu`\|`mem`, default: cpu, 20) |
 | `exec-deployment.sh` | Run a shell command across all running pods in a deployment |
+| `node-pods.sh` | List all pods scheduled on a specific node |
+| `node-pressure.sh` | Show nodes with MemoryPressure / DiskPressure / PIDPressure and a full condition summary |
+| `node-drain-check.sh` | Preview pods to evict, DaemonSets, and PDB blockers before draining a node |
+| `node-debug.sh` | Launch a privileged pod on a node with the host filesystem mounted at `/host` |
+| `node-taints.sh` | Show all node taints and pods with matching tolerations |
+| `hpa-status.sh` | Show HPA current vs. target metrics and recent scaling events |
+| `pvc-debug.sh` | Show PVC status, bound PV details, storage class, and events |
+| `rbac-check.sh` | Show effective permissions for a service account (can-i list + role bindings) |
+| `dns-check.sh` | Test DNS resolution and HTTP reachability from inside the cluster |
+| `pod-connectivity.sh` | Test TCP connectivity from a pod to a target host:port |
 
 ### Git (`scripts/git/`)
 
