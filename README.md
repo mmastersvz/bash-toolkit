@@ -128,6 +128,11 @@ This copies the plugins to `/usr/local/bin` so they are available as `kubectl <p
 | `resource-audit.sh` | Pods missing resource requests/limits |
 | `search-env.sh` | Search env vars across pods |
 | `service-pods.sh` | List pods backing a service |
+| `oom-killed.sh` | List pods that have been OOMKilled with memory limits and restart counts |
+| `pending-pods.sh` | Show pending pods and events explaining why they are stuck |
+| `image-pull-errors.sh` | Find pods stuck in ErrImagePull / ImagePullBackOff |
+| `ingress-debug.sh` | Show an ingress, backend services, endpoints, and TLS status |
+| `debug-pod.sh` | Launch a throwaway busybox pod for cluster-side debugging |
 
 ### Git (`scripts/git/`)
 
@@ -138,9 +143,19 @@ This copies the plugins to `/usr/local/bin` so they are available as `kubectl <p
 
 ### GitHub (`scripts/github/`)
 
+All scripts require the `gh` CLI. Scripts that operate on an org accept `<org>` as the first argument or via the `ORG` env var.
+
 | Script | Description |
 |--------|-------------|
-| `update-org-repo-settings.sh` | Enable "delete branch on merge" across all repos in a GitHub org (requires `gh` CLI and `ORG` env var) |
+| `update-org-repo-settings.sh` | Enable "delete branch on merge" across all repos in a GitHub org |
+| `gh-pr-queue.sh` | List all open PRs across an org with author, age, and review status |
+| `gh-stale-prs.sh` | Open PRs with no activity in N days (default: 14) |
+| `gh-stale-branches.sh` | Branches with no commits in N days for a repo (default: 30) |
+| `gh-failed-runs.sh` | Repos in an org whose default-branch workflow run is failing |
+| `gh-rerun-failed.sh` | Re-run failed jobs on the latest failed workflow run for a repo |
+| `gh-repo-audit.sh` | Audit branch protection, CODEOWNERS presence, and required review counts |
+| `gh-secret-names.sh` | List all secret names (not values) at org and repo level |
+| `gh-release-notes.sh` | Generate a changelog of merged PRs between two tags |
 
 ### System (`scripts/system/`)
 
