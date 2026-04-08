@@ -9,13 +9,13 @@ NS_FLAG=${NS_FLAG:---all-namespaces}
 
 echo "=== HPA Status ==="
 echo ""
-kubectl get hpa $NS_FLAG
+kubectl get hpa "$NS_FLAG"
 
 echo ""
 echo "=== HPA Detail ==="
 echo ""
 
-kubectl get hpa $NS_FLAG -o json | jq -r '
+kubectl get hpa "$NS_FLAG" -o json | jq -r '
 .items[] |
 "--- \(.metadata.namespace)/\(.metadata.name) ---",
 "  Target:   \(.spec.scaleTargetRef.kind)/\(.spec.scaleTargetRef.name)",
@@ -35,7 +35,7 @@ kubectl get hpa $NS_FLAG -o json | jq -r '
 echo "=== Recent Scaling Events ==="
 echo ""
 
-kubectl get events $NS_FLAG \
+kubectl get events "$NS_FLAG" \
   --field-selector reason=SuccessfulRescale \
   --sort-by=.metadata.creationTimestamp \
   | tail -20
