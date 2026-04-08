@@ -118,28 +118,42 @@ This copies the plugins to `/usr/local/bin` so they are available as `kubectl <p
 
 | Script | Description |
 |--------|-------------|
-| `k8s-health-check.sh` | Cluster overview: node status, non-running pods, CPU usage, recent warnings |
-| `failing-deployments.sh` | Deployments with unavailable replicas |
-| `logs-deployment.sh` | Stream logs from all pods of a deployment |
+| `debug-pod.sh` | Launch a throwaway busybox pod for cluster-side debugging |
 | `decode-secret.sh` | Base64-decode all fields of a Kubernetes secret |
 | `delete-crashloop-pods.sh` | Delete all pods in CrashLoopBackOff |
-| `port-forward-deployment.sh` | Port-forward to a deployment |
+| `dns-check.sh` | Test DNS resolution and HTTP reachability from inside the cluster |
+| `exec-deployment.sh` | Run a shell command across all running pods in a deployment |
+| `failing-deployments.sh` | Deployments with unavailable replicas |
+| `hpa-status.sh` | Show HPA current vs. target metrics and recent scaling events |
+| `image-pull-errors.sh` | Find pods stuck in ErrImagePull / ImagePullBackOff |
+| `ingress-debug.sh` | Show an ingress, backend services, endpoints, and TLS status |
+| `k8s-health-check.sh` | Cluster overview: node status, non-running pods, CPU usage, recent warnings |
+| `logs-deployment.sh` | Stream logs from all pods of a deployment |
+| `netdebug-pod.sh` | Launch a netshoot pod with curl, dig, tcpdump, nmap, iperf3, etc. (optional `--node` targeting) |
+| `node-debug.sh` | Launch a privileged pod on a node with the host filesystem mounted at `/host` |
+| `node-drain-check.sh` | Preview pods to evict, DaemonSets, and PDB blockers before draining a node |
+| `node-pods.sh` | List all pods scheduled on a specific node |
+| `node-pressure.sh` | Show nodes with MemoryPressure / DiskPressure / PIDPressure and a full condition summary |
 | `node-resources.sh` | Node resource requests vs. limits |
+| `node-taints.sh` | Show all node taints and pods with matching tolerations |
+| `oom-killed.sh` | List pods that have been OOMKilled with memory limits and restart counts |
+| `pending-pods.sh` | Show pending pods and events explaining why they are stuck |
+| `pod-connectivity.sh` | Test TCP connectivity from a pod to a target host:port |
+| `pod-trace.sh` | All-in-one pod debugger: describe, all container logs (current + previous), and events |
+| `port-forward-deployment.sh` | Port-forward to a deployment |
+| `pvc-debug.sh` | Show PVC status, bound PV details, storage class, and events |
+| `rbac-check.sh` | Show effective permissions for a service account (can-i list + role bindings) |
 | `resource-audit.sh` | Pods missing resource requests/limits |
 | `search-env.sh` | Search env vars across pods |
 | `service-pods.sh` | List pods backing a service |
-| `oom-killed.sh` | List pods that have been OOMKilled with memory limits and restart counts |
-| `pending-pods.sh` | Show pending pods and events explaining why they are stuck |
-| `image-pull-errors.sh` | Find pods stuck in ErrImagePull / ImagePullBackOff |
-| `ingress-debug.sh` | Show an ingress, backend services, endpoints, and TLS status |
-| `debug-pod.sh` | Launch a throwaway busybox pod for cluster-side debugging |
+| `top-pods.sh` | Top N pods by CPU or memory across all namespaces (`cpu`\|`mem`, default: cpu, 20) |
 
 ### Git (`scripts/git/`)
 
 | Script | Description |
 |--------|-------------|
-| `git-pull-dirs.sh` | `git pull` on all subdirectories (switch to main first) |
 | `git-clean-merged.sh` | Delete local branches already merged into main |
+| `git-pull-dirs.sh` | `git pull` on all subdirectories (switch to main first) |
 
 ### GitHub (`scripts/github/`)
 
@@ -147,25 +161,25 @@ All scripts require the `gh` CLI. Scripts that operate on an org accept `<org>` 
 
 | Script | Description |
 |--------|-------------|
-| `update-org-repo-settings.sh` | Enable "delete branch on merge" across all repos in a GitHub org |
-| `gh-pr-queue.sh` | List all open PRs across an org with author, age, and review status |
-| `gh-stale-prs.sh` | Open PRs with no activity in N days (default: 14) |
-| `gh-stale-branches.sh` | Branches with no commits in N days for a repo (default: 30) |
 | `gh-failed-runs.sh` | Repos in an org whose default-branch workflow run is failing |
-| `gh-rerun-failed.sh` | Re-run failed jobs on the latest failed workflow run for a repo |
-| `gh-repo-audit.sh` | Audit branch protection, CODEOWNERS presence, and required review counts |
-| `gh-secret-names.sh` | List all secret names (not values) at org and repo level |
+| `gh-pr-queue.sh` | List all open PRs across an org with author, age, and review status |
 | `gh-release-notes.sh` | Generate a changelog of merged PRs between two tags |
+| `gh-repo-audit.sh` | Audit branch protection, CODEOWNERS presence, and required review counts |
+| `gh-rerun-failed.sh` | Re-run failed jobs on the latest failed workflow run for a repo |
+| `gh-secret-names.sh` | List all secret names (not values) at org and repo level |
+| `gh-stale-branches.sh` | Branches with no commits in N days for a repo (default: 30) |
+| `gh-stale-prs.sh` | Open PRs with no activity in N days (default: 14) |
+| `update-org-repo-settings.sh` | Enable "delete branch on merge" across all repos in a GitHub org |
 
 ### System (`scripts/system/`)
 
 | Script | Description |
 |--------|-------------|
-| `system-info.sh` | OS, CPU, memory, and disk summary |
 | `disk-usage.sh` | Top disk consumers |
 | `port-check.sh` | Check if a port is open on a host |
 | `port-scan.sh` | Scan common ports on a host |
 | `process-search.sh` | Find processes by name |
+| `system-info.sh` | OS, CPU, memory, and disk summary |
 
 ### Postgres (`scripts/postgres/`)
 
@@ -175,23 +189,23 @@ These scripts connect to a Postgres instance via K8s port-forwarding through pgb
 
 | Script | Description |
 |--------|-------------|
-| `pg-shell.sh` | Open an interactive psql shell |
 | `pg-connections.sh` | Active connections grouped by database, user, client address, and state |
 | `pg-db-sizes.sh` | Size of all databases |
+| `pg-dump.sh` | Dump a database to a gzipped SQL file |
+| `pg-list-databases.sh` | List all non-template databases (uses `PGHOST`/`PGPORT` env vars) |
+| `pg-restore.sh` | Restore a gzipped SQL dump into a database |
+| `pg-shell.sh` | Open an interactive psql shell |
 | `pg-table-sizes.sh` | Top 20 tables by total size |
 | `pg-top-queries.sh` | Top 10 running queries by duration |
 | `pg-vacuum-report.sh` | Tables with the most dead tuples (vacuum candidates) |
-| `pg-dump.sh` | Dump a database to a gzipped SQL file |
-| `pg-restore.sh` | Restore a gzipped SQL dump into a database |
-| `pg-list-databases.sh` | List all non-template databases (uses `PGHOST`/`PGPORT` env vars) |
 
 ### Other
 
 | Script | Description |
 |--------|-------------|
-| `log-analyzer.sh` | Summarize top ERROR and WARN messages from a log file |
-| `docker-clean.sh` | Remove stopped containers, unused images, and volumes |
 | `d64.sh` | Decode a base64 string |
+| `docker-clean.sh` | Remove stopped containers, unused images, and volumes |
+| `log-analyzer.sh` | Summarize top ERROR and WARN messages from a log file |
 
 ---
 
