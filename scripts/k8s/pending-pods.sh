@@ -7,7 +7,7 @@ NAMESPACE=${1:-""}
 NS_FLAG=${NAMESPACE:+-n "$NAMESPACE"}
 NS_FLAG=${NS_FLAG:---all-namespaces}
 
-pending=$(kubectl get pods $NS_FLAG -o json \
+pending=$(kubectl get pods "$NS_FLAG" -o json \
   | jq -r '.items[] | select(.status.phase == "Pending") | "\(.metadata.namespace)/\(.metadata.name)"')
 
 if [ -z "$pending" ]; then
